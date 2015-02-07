@@ -1,0 +1,8 @@
+{% extends "message_board/pie_base.html" %}
+{% block body %}
+    {% if user.is_authenticated %}
+        {# show top 10 questions by modified date #}
+    {% else %}
+        {# provide login/register option #}
+    {% endif %}
+{% endblock %}
