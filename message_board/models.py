@@ -9,15 +9,15 @@ class Topic(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
 
 
-class Question(models.Model):
-    text = models.CharField(max_length=100)
+class Message(models.Model):
+    message = models.CharField(max_length=100)
     user = models.ForeignKey(User)
     topic = models.ForeignKey(Topic)
     creation_date = models.DateTimeField(auto_now_add=True)
 
 
-class Message(models.Model):
-    text = models.CharField(max_length=200)
+class Comment(models.Model):
+    comment = models.CharField(max_length=200)
     user = models.ForeignKey(User)
-    question = models.ForeignKey(Question)
+    message = models.ForeignKey(Message)
     creation_date = models.DateTimeField(auto_now_add=True)

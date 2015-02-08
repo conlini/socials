@@ -2,7 +2,9 @@
 {% block body %}
     {% if user.is_authenticated %}
         {# show top 10 questions by modified date #}
+        Hello {{ user.username }}
     {% else %}
         {# provide login/register option #}
+        {{ block.super }}
     {% endif %}
 {% endblock %}
