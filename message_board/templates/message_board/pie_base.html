@@ -15,7 +15,8 @@
                     {% csrf_token %}
                     Username: <input type="text" name="username">
                     Password: <input type="password" name="password">
-                    Confirm Password: <input type="password" name="confirm">
+                    Confirm Password: <input type="password"
+                                             name="confirm">
                     Email: <input type="email" name="email">
                     <input type="submit" value="Register">
                 </form>
@@ -36,6 +37,7 @@
         </div>
     {% endblock %}
 </div>
+
 <div id="footer"></div>
 </body>
 </html>

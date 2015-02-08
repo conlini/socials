@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+
+from models import Message
+
 
 # Create your views here.
 
@@ -9,7 +12,16 @@ from django.contrib.auth import authenticate, login
 def home(request):
     # simple page with login
     # if login, show categories and last 10 topics discussed
-    return render(request, 'message_board/home.html')
+    out = {}
+    messages = None
+    template_return = 'message_board/home.html'
+    if request.user.is_authenticated():
+        # we are logged in, pull top 10 messages
+        messages = Message.objects.all()[:10]
+        if messages:
+            out.update("messages", messages)
+
+    return render(request, template_return, messages)
 
 
 @login_required(login_url='/login')
@@ -22,12 +34,10 @@ def save_question(request):
     pass
 
 
-@login_required(login_url='/login')
 def get_questions(request, topic):
     pass
 
 
-@login_required(login_url='/login')
 def get_messages(request, question):
     pass
 
@@ -41,8 +51,9 @@ def log_me_in(request):
         if u:
             login(request, u)
         else:
-            out.update({"login_error": "Invalid username/passoword"})
-    return render(request, "message_board/home.html", out)
+            out.update({"login_error": "Invalid username/password"})
+            return render(request, "message_board/home.html", out)
+    return redirect("../")
 
 
 
@@ -59,9 +70,9 @@ def register(request):
         u.save();
         u = authenticate(username=u.username, password=passwd)
         login(request, u)
-    return render(request, "message_board/home.html")
+    return redirect("../")
 
 
-
-
-
+def log_me_out(request):
+    logout(request)
+    return redirect("../")

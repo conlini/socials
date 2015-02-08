@@ -14,6 +14,10 @@ class Message(models.Model):
     user = models.ForeignKey(User)
     topic = models.ForeignKey(Topic)
     creation_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        get_latest_by = "last_modified"
 
 
 class Comment(models.Model):
@@ -21,3 +25,6 @@ class Comment(models.Model):
     user = models.ForeignKey(User)
     message = models.ForeignKey(Message)
     creation_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        get_latest_by = "creation_date"

@@ -6,5 +6,7 @@ urlpatterns = patterns('',
                        url(r'login', 'message_board.views.log_me_in',
                            name='login'),
                        url(r'register', 'message_board.views.register',
-                           name='register')
+                           name='register'),
+                       url(r'logout', 'message_board.views.log_me_out',
+                           name='logout'),
 )

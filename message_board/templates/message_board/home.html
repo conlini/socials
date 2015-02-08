@@ -3,6 +3,9 @@
     {% if user.is_authenticated %}
         {# show top 10 questions by modified date #}
         Hello {{ user.username }}
+        <div id="logout">
+            <a href="/logout">Logout</a>
+        </div>
     {% else %}
         {# provide login/register option #}
         {{ block.super }}
