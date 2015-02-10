@@ -1,0 +1,11 @@
+{% extends "message_board/pie_base.html" %}
+{% block body %}
+    <div id="message_form">
+    <form action="/socials/message/save" method="post">
+        {% csrf_token %}
+        Message: <input type="text" name="message">
+        Topic: <input type="text" name="topic">
+        <input type="submit" value="Save">
+        </form>
+    </div>
+{% endblock %}

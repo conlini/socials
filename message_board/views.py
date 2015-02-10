@@ -14,14 +14,15 @@ def home(request):
     # if login, show categories and last 10 topics discussed
     out = {}
     messages = None
-    template_return = 'message_board/home.html'
+    template_return = 'message_board/pie_base.html'
     if request.user.is_authenticated():
         # we are logged in, pull top 10 messages
         messages = Message.objects.all()[:10]
         if messages:
-            out.update("messages", messages)
+            out["messages"] = messages
+        template_return = "message_board/home.html"
 
-    return render(request, template_return, messages)
+    return render(request, template_return, out)
 
 
 @login_required(login_url='/login')
@@ -31,7 +32,13 @@ def save_message(request):
 
 @login_required(login_url='/login')
 def save_question(request):
-    pass
+    if request.method == "POST":
+        message_string = request.POST.get('message')
+        message = Message()
+        message.message = message_string
+        message.user = request.user
+        message.save()
+    return redirect("home")
 
 
 def get_questions(request, topic):
@@ -52,9 +59,8 @@ def log_me_in(request):
             login(request, u)
         else:
             out.update({"login_error": "Invalid username/password"})
-            return render(request, "message_board/home.html", out)
-    return redirect("../")
-
+            return render(request, "message_board/pie_base.html", out)
+    return redirect("home")
 
 
 def register(request):
@@ -70,9 +76,13 @@ def register(request):
         u.save();
         u = authenticate(username=u.username, password=passwd)
         login(request, u)
-    return redirect("../")
+    return redirect("home")
 
 
 def log_me_out(request):
     logout(request)
-    return redirect("../")
+    return redirect("home")
+
+
+def new_message(request):
+    return render(request, "message_board/new_message.html")

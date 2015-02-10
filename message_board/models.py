@@ -12,7 +12,7 @@ class Topic(models.Model):
 class Message(models.Model):
     message = models.CharField(max_length=100)
     user = models.ForeignKey(User)
-    topic = models.ForeignKey(Topic)
+    topic = models.ForeignKey(Topic, null=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 

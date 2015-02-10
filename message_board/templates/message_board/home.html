@@ -1,13 +1,21 @@
 {% extends "message_board/pie_base.html" %}
 {% block body %}
-    {% if user.is_authenticated %}
-        {# show top 10 questions by modified date #}
-        Hello {{ user.username }}
-        <div id="logout">
-            <a href="/logout">Logout</a>
+    <div id="home-main">
+        <div id="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div>
+                        <a href="/message/{{ message.id }}">{{ message.message }}</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No Messages saved!!!</p>
+            {% endif %}
         </div>
-    {% else %}
-        {# provide login/register option #}
-        {{ block.super }}
-    {% endif %}
+    </div>
+{% endblock %}
+{% block page-control %}
+    <div id="home-control">
+        <a href="socials/new_message">New</a>
+    </div>
 {% endblock %}

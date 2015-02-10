@@ -5,7 +5,27 @@
     <title>Socials</title>
 </head>
 <body>
-<div id="header"></div>
+<div id="header">
+    {% block header %}
+        <div id="banner">
+            <div>
+                <h4>Socials</h4>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                    Hello {{ user.username }}
+                {% else %}
+                    <p>Hello Guest</p>
+                {% endif %}
+            </div>
+            <div id="page-control">
+                {% block page-control %}
+
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+</div>
 <div id="body">
     {% block body %}
         <div id="login_register">
