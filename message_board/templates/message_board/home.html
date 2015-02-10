@@ -5,7 +5,7 @@
             {% if messages %}
                 {% for message in messages %}
                     <div>
-                        <a href="/message/{{ message.id }}">{{ message.message }}</a>
+                        <a href="socials/message/{{ message.pk }}">{{ message.message }}</a>
                     </div>
                 {% endfor %}
             {% else %}

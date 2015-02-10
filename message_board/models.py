@@ -8,11 +8,14 @@ class Topic(models.Model):
     name = models.CharField(max_length=50)
     creation_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Message(models.Model):
     message = models.CharField(max_length=100)
     user = models.ForeignKey(User)
-    topic = models.ForeignKey(Topic, null=True)
+    topic = models.ForeignKey(Topic, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 

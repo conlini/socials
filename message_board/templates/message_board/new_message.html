@@ -3,8 +3,7 @@
     <div id="message_form">
     <form action="/socials/message/save" method="post">
         {% csrf_token %}
-        Message: <input type="text" name="message">
-        Topic: <input type="text" name="topic">
+        {{ new_msg_form.as_p }}
         <input type="submit" value="Save">
         </form>
     </div>
